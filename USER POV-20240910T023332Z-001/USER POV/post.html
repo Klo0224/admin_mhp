@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindsoothe</title>
+    <style>
+    body, html {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #f0f0f0;
+    box-sizing: border-box;
+}
+#app {
+    display: flex;
+    height: 100vh;
+  }
+.top-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: width 0.3s, margin-left 0.3s, margin-right 0.3s;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+.top-navbar.collapsed {
+  width: calc(100% - 100%);
+  margin-right: 100px;
+}
+.top-navbar .svgrepo-iconcarrier{
+    margin-left: 700px;
+}
+
+.top-navbar .logo img {
+    max-height: 60px;
+}
+
+.top-navbar .search-bar input {
+    width: 300px;
+    padding: 8px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+}
+
+.top-navbar .user-profile {
+    display: flex;
+    align-items: center;
+    
+}
+
+.top-navbar .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 50px;
+
+}
+
+.top-navbar .username {
+    font-weight: bold;
+    color: #333;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 200px 1fr 300px;
+    height: calc(100vh - 60px); /* Adjust for the height of the top navbar */
+    margin-top: 10px;
+}
+  
+  .sidebar {
+    width: 250px;
+    background-color: #f4f4f4;
+    transition: width 0.3s;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+  }
+  
+  .sidebar.collapsed {
+    width: 60px;
+  }
+  
+  .toggle-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 15px;
+  }
+  
+  .menu-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    padding-left: 10px;
+  }
+ .menu-item.active {
+  background-color: #d0e4f5; /* Highlight color for active item */
+  border-left: 4px solid #007bff; /* A left border to indicate active section */
+} 
+  .menu-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .menu-text {
+    margin-left: 10px;
+    transition: opacity 0.3s, margin-left 0.3s;
+  }
+  
+  .sidebar.collapsed .menu-text {
+    opacity: 0;
+    margin-left: -50px;
+    pointer-events: none;
+  }
+
+  .main-content {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 90px; /* Adjusted to match the sidebar width */
+     /* Match this with the right sidebar width */
+  transition: margin-left 0.3s;
+  }
+  
+  .sidebar.collapsed + .main-content {
+    margin-left: 60px; /* Adjusted for collapsed state */
+     /* Adjusted for collapsed state */
+  }
+  
+  .sidebar.collapsed + .main-content + .right-bar {
+    margin-left: 60px;
+    
+  }
+  .sidebar.collapsed + .main-content + .right-sidebar + .top-navbar {
+    margin-left: 60px;
+}
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 200px;
+    }
+  
+    .sidebar.collapsed {
+      width: 50px;
+    }
+    
+    .sidebar.collapsed + .main-content {
+      margin-left: 50px;
+      
+    }
+  
+    .sidebar.collapsed + .main-content + .right-bar {
+      margin-left: 50px;
+     
+    }
+
+    .sidebar.collapsed + .main-content + .right-bar + .top-navbar {
+      margin-left: 50px;
+        
+    }
+  }
+
+.post-input {
+    display: flex;
+    gap: 10px;
+}
+
+.post-input input {
+    flex-grow: 1;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.post-input button {
+    padding: 15px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.post-input button:hover {
+    background-color: #0056b3;
+}
+
+.posts {
+    margin-top: 10px;
+}
+
+.post {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    max-width: 1000px; /* Match this width with the text box */
+    box-sizing: border-box;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3px;
+}
+.frame-10 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+.th {
+  color: var(--primary-red);
+  position: relative;
+  width: 28px;
+  margin-top: -1px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+.th-2 {
+  color: var(--dark-gray-1);
+  position: relative;
+  width: 28px;
+  margin-top: -1px;
+  font-family: "Inter", Helvetica;
+  font-weight: 400;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+.work-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 2px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+.calendar-date {
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+  height: 32px;
+}
+.calendar-date-2 {
+  display: flex;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+.text-wrapper-10 {
+  font-weight: 400;
+  color: var(--gray);
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 16px;
+  white-space: nowrap;
+}
+.element-2 {
+  font-weight: 400;
+  color: var(--primary-red);
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 16px;
+  white-space: nowrap;
+}
+.ellipse-3 {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  top: 4px;
+  left: 35px;
+  background-color: #9747ff;
+  border-radius: 2px;
+}
+.element-wrapper {
+  border-radius: 1000px;
+  display: flex;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+.element-3 {
+  font-weight: 600;
+  color: #848484;
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 16px;
+  white-space: nowrap;
+}
+.calendar-date-3 {
+  border-radius: 8px;
+  display: flex;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+.text-wrapper-11 {
+  font-weight: 400;
+  color: #848484;
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 16px;
+  white-space: nowrap;
+}
+.ellipse-4 {
+  width: 6px;
+  height: 6px;
+  top: 3px;
+  left: 34px;
+  border-radius: 3px;
+  border: 1px solid;
+  border-color: var(--white);
+  position: absolute;
+  background-color: var(--green);
+}
+.calendar-date-4 {
+  border-radius: 8px 0px 0px 8px;
+  display: flex;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+.ellipse-5 {
+  width: 4px;
+  height: 4px;
+  top: 4px;
+  left: 35px;
+  border-radius: 2px;
+  position: absolute;
+  background-color: var(--green);
+}
+.div-wrapper {
+  border-radius: 0px 8px 8px 0px;
+  display: flex;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+.frame-11 {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.username {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.time {
+    color: #999;
+}
+.line-2 {
+  margin-top: .5rem;
+  margin-bottom: 3px;
+}
+.heart-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  outline: none;
+  padding: 0;
+  transition: transform 0.3s ease;
+}
+
+.heart-icon {
+  color: #ccc;
+  transition: color 0.3s ease;
+}
+
+.heart-icon.liked {
+  color: red;
+}
+
+
+  .right-sidebar {
+    background-color: #f0f0f0;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: width 0.3s, margin-left 0.3s;
+  }
+  
+  .right-sidebar .section {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .right-sidebar .section h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .right-sidebar .calendar {
+    text-align: center;
+  }
+  
+  .right-sidebar .chats {
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+  }
+  
+  .right-sidebar .friends ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .right-sidebar .friends ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .right-sidebar .friends ul li .friend-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .right-sidebar .friends ul li .friend-name {
+    font-weight: bold;
+    color: #333;
+  }
+  
+    </style>    
+</head>
+<body>
+
+    <div class="top-navbar">
+        <div class="logo">
+            <a href="#"><img src="img/logo-mindsoothe-1.png" alt="Mindsoothe Logo"></a>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search Mindsoothe">
+        </div>
+        <img class="svgrepo-iconcarrier" src="img/svgrepo-iconcarrier.svg" />
+        <div class="user-profile">
+            <img src="img/klo.png" alt="User Avatar" class="user-avatar">
+            <span class="username">Chloe Kate Realin</span>
+        </div>
+        <img class="log-out" src="img/logout.svg" />
+    </div>
+
+    <div class="container">
+        <!-- Left Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <button id="toggleBtn" class="toggle-btn"><img id="toggleIcon" src="img/frame-3.svg" alt="Toggle Menu" class="toggle-icon"></button>
+            <div class="menu-content">
+                <a class="menu-item" id="gracefulThreadItem">
+                    <img src="img/freedom-wall-side.png" alt="Graceful Thread" class="menu-icon">
+                    <span class="menu-text">Graceful-thread</span> 
+                </a>
+                <a class="menu-item" id="sereneMomentsItem">
+                    <img src="img/psyc.svg" alt="psyc" class="menu-icon">
+                    <span class="menu-text">Mental Health Professional</span>  
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div class="post-input">
+                <input type="text" id="postText" placeholder="What are you grateful for?">
+                <button id="postButton">Post</button>
+            </div>
+            <div class="posts" id="timeline">
+                <!-- Posts will be appended here -->
+            </div>
+            
+            
+            <div class="post">
+                <div class="post-header">
+                    <img src="img/dems.png" alt="User Avatar" class="user-avatar">
+                    <span class="username">Denise Daroni</span>
+                    <span class="time">1h</span>
+                </div>
+                <div class="post-content">
+                    <p>Amidst life’s bustling symphony, find moments to breathe, to smile, to simply be. 🌿✨</p>
+                </div>
+                <img class="line-2" src="img/line-12-3.svg" />
+                    <button id="heart-button" class="heart-button">
+                        <span id="heart-icon" class="heart-icon">&#10084;</span>
+                    </button>
+                    <p class="reaction-text">Like</p>
+            </div>
+            
+            <div class="post">
+                <div class="post-header">
+                    <img src="img/gabe itech.png" alt="User Avatar" class="user-avatar">
+                    <span class="username">Gabe Itech</span>
+                    <span class="time">1h</span>
+                </div>
+                <div class="post-content">
+                    <p>Let the gentle rhythm of your breath guide you to a tranquil oasis within. Inhale peace, exhale joy. 🌸</p>
+                </div>
+                <img class="line-2" src="img/line-12-3.svg" />
+                    <button id="heart-button" class="heart-button">
+                        <span id="heart-icon" class="heart-icon">&#10084;</span>
+                    </button>
+                    <p class="reaction-text">Like</p>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <img src="img/dena legoh.png" alt="User Avatar" class="user-avatar">
+                    <span class="username">Dena Legoh</span>
+                    <span class="time">1h</span>
+                </div>
+                <div class="post-content">
+                    <p>Like a gentle stream, let your worries flow away, leaving only the peaceful whispers of the present moment to surround you. 🌊💤</p>
+                </div>
+                <img class="line-2" src="img/line-12-3.svg" />
+                    <button id="heart-button" class="heart-button">
+                        <span id="heart-icon" class="heart-icon">&#10084;</span>
+                    </button>
+                    <p class="reaction-text">Like</p>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <img src="img/gabe itech.png" alt="User Avatar" class="user-avatar">
+                    <span class="username">Anonymous</span>
+                    <span class="time">1h</span>
+                </div>
+                <div class="post-content">
+                    <p>Like a gentle stream, let your worries flow away, leaving only the peaceful whispers of the present moment to surround you. 🌊💤</p>
+                </div>
+                <img class="line-2" src="img/line-12-3.svg" />
+                    <button id="heart-button" class="heart-button">
+                        <span id="heart-icon" class="heart-icon">&#10084;</span>
+                    </button>
+                    <p class="reaction-text">Like</p>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="right-sidebar">
+            <!-- Calendar Compartment -->
+            <div class="section calendar">
+                <img class="chevron" src="img/chevron-8.svg" />May 2024<img class="chevron" src="img/chevron-9.svg"/>
+
+            <div class="frame-10">
+              <div class="frame-11">
+                <div class="work-day"><div class="th">Sun</div></div>
+                <div class="work-day"><div class="th-2">Mon</div></div>
+                <div class="work-day"><div class="th-2">Tue</div></div>
+                <div class="work-day"><div class="th-2">Wed</div></div>
+                <div class="work-day"><div class="th-2">Thu</div></div>
+                <div class="work-day"><div class="th-2">Fri</div></div>
+                <div class="work-day"><div class="th">Sat</div></div>
+              </div>
+              <div class="frame-10">
+                <div class="frame-11">
+                  <div class="calendar-date"></div>
+                  <div class="calendar-date"></div>
+                  <div class="calendar-date"></div>
+                  <div class="calendar-date"></div>
+                  <div class="calendar-date-2"><div class="text-wrapper-10">1</div></div>
+                  <div class="calendar-date-2"><div class="text-wrapper-10">2</div></div>
+                  <div class="calendar-date-2"><div class="text-wrapper-10">3</div></div>
+                </div>
+                <div class="frame-11">
+                    <div class="calendar-date-2"><div class="element-2">4</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">5</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">6</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">7</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">8</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">9</div></div>
+                    <div class="calendar-date-2"><div class="element-2">10</div></div>
+                  </div>
+                 </div>
+                 <div class="frame-11">
+                    <div class="calendar-date-2"><div class="element-2">11</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">23</div></div>
+                    <div class="calendar-date-2">
+                      <div class="text-wrapper-10">13</div>
+                      <div class="ellipse-3"></div>
+                    </div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">14</div></div>
+                    <div class="element-wrapper"><div class="element-3">15</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">16</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">17</div></div>
+                  </div>
+                  <div class="frame-11">
+                    <div class="calendar-date-2"><div class="text-wrapper-10">18</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">19</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">20</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">21</div></div>
+                    <div class="calendar-date-3">
+                      <div class="text-wrapper-11">22</div>
+                      <div class="ellipse-4"></div>
+                    </div>
+                    <div class="calendar-date-2"><div class="text-wrapper-11">23</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-11">24</div></div>
+                  </div>
+                  <div class="frame-11">
+                    <div class="calendar-date-2"><div class="text-wrapper-11">25</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-11">26</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-11">27</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-11">28</div></div>
+                    <div class="calendar-date-4">
+                      <div class="text-wrapper-11">29</div>
+                      <div class="ellipse-5"></div>
+                    </div>
+                    <div class="div-wrapper"><div class="text-wrapper-11">30</div></div>
+                    <div class="calendar-date"></div>
+                  </div>
+            </div>
+            </div>
+            
+            <!-- Chats Compartment -->
+            <div class="section chats">
+                <h3>Chats</h3>
+                <p>Choose your mental wellness companion first to access this...</p>
+            </div>
+            
+            <!-- Friends Compartment -->
+            <div class="section friends">
+                <h3>Friends</h3>
+                <ul>
+                    <li>
+                        <img src="img/gabe itech.png" alt="Gabe" class="friend-avatar">
+                        <span class="friend-name">Gabe Itch</span>
+                    </li>
+                    <li>
+                        <img src="img/dena legoh.png" alt="Dina" class="friend-avatar">
+                        <span class="friend-name">Dina Legoh</span>
+                    </li>
+                    <li>
+                        <img src="img/dems.png" alt="Denise" class="friend-avatar">
+                        <span class="friend-name">Denise Jeanne</span>
+                    </li>
+                    <li>
+                        <img src="img/carlos.png" alt="Carlos" class="friend-avatar">
+                        <span class="friend-name">Carlos Joaquin</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       document.addEventListener('DOMContentLoaded', function() {
+    // Load existing posts
+    loadPosts();
+
+    document.getElementById('postButton').addEventListener('click', function() {
+        var postText = document.getElementById('postText').value;
+
+        if (postText.trim() !== "") {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'post.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Add the new post to the timeline
+                    document.getElementById('timeline').innerHTML = xhr.responseText + document.getElementById('timeline').innerHTML;
+                    document.getElementById('postText').value = ''; // Clear the input field
+                    attachHeartEventListeners(); // Attach event listeners to heart buttons
+                }
+            };
+
+            xhr.send('message=' + encodeURIComponent(postText));
+        }
+    });
+
+function loadPosts() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'get_post.php', true);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            document.getElementById('timeline').innerHTML = xhr.responseText;
+            attachHeartEventListeners(); // Attach event listeners to heart buttons
+        }
+    };
+
+    xhr.send();
+}
+function attachHeartEventListeners() {
+        var heartButtons = document.querySelectorAll('.heart-button');
+
+        heartButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var heartIcon = this.querySelector('.heart-icon');
+                var likesCount = this.querySelector('.likes-count');
+                var likes = parseInt(likesCount.textContent) || 0;
+                if (heartIcon.classList.contains('liked')) {
+                    // Unlike the post
+                    likes--;
+                    heartIcon.classList.remove('liked');
+                } else {
+                    // Like the post
+                    likes++;
+                    heartIcon.classList.add('liked');
+                }
+
+                likesCount.textContent = likes;
+
+                // Optionally, send the like count to the server using AJAX
+                var postId = this.dataset.postId;
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'like_post.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send('id=' + postId + '&likes=' + likes);
+            });
+        });
+    }
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        console.log(xhr.responseText); // Log the server response
+    }
+};
+});
+
+const toggleBtn = document.getElementById('toggleBtn');
+const sidebar = document.getElementById('sidebar');
+const mainContent = document.getElementById('mainContent');
+const rightBar = document.getElementById('rightBar');
+const topbar = document.getElementById('top-navbar')
+
+// Toggle sidebar function
+toggleBtn.addEventListener('click', () => {
+  sidebar.classList.toggle('collapsed');
+  mainContent.classList.toggle('collapsed');
+  rightBar.classList.toggle('collapsed');
+  topbar.classList.toggle('collapsed');
+});
+
+// Active menu item handling
+const menuItems = document.querySelectorAll('.menu-item');
+
+menuItems.forEach(item => {
+  item.addEventListener('click', function () {
+    // Remove active class from all menu items
+    menuItems.forEach(i => i.classList.remove('active'));
+    
+    // Add active class to the clicked item
+    this.classList.add('active');
+  });
+});
+
+// Set the initial active menu item based on the current section visible on the page
+window.addEventListener('load', () => {
+  const hash = window.location.hash.substring(1); // Get the section from the URL hash
+  const activeItem = document.querySelector(`a[href="#${hash}"]`);
+  if (activeItem) {
+    activeItem.classList.add('active');
+  } else {
+    // Default active item if no hash is found in the URL
+    document.getElementById('gracefulThreadItem').classList.add('active');
+  }
+});
+
+document.querySelectorAll('.heart-button').forEach(button => {
+    button.addEventListener('click', function() {
+        this.classList.toggle('liked');
+    });
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .sidebar {
+    width: 200px;
+    position: fixed;
+    height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.menu-content .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    color: #000;
+}
+
+.menu-content .menu-item.active {
+    background-color: #e0e0e0; /* Active state color */
+    color: #333;
+}
+
+.menu-content .menu-item:hover {
+    background-color: #f0f0f0;
+}
+
+.main-content {
+    padding: 20px;
+    margin-left: 220px; /* Adjust based on sidebar width */
+}
+
+    </style>
+</head>
+<body>
+   <!-- Left Sidebar -->
+<div id="sidebar" class="sidebar">
+    <button id="toggleBtn" class="toggle-btn">
+        <img id="toggleIcon" src="img/frame-3.svg" alt="Toggle Menu" class="toggle-icon">
+    </button>
+    <div class="menu-content">
+        <a class="menu-item active" id="gracefulThreadItem" data-file="inline">
+            <img src="img/gracefulthread.png" alt="Graceful Thread" class="menu-icon">
+            <span class="menu-text">Graceful-thread</span> 
+        </a>
+        <a class="menu-item" id="sereneMomentsItem" data-file="mental-health-professional.html">
+            <img src="img/mhpcomp.png" alt="Mental Health Professional" class="menu-icon">
+            <span class="menu-text">Mental Health Professional</span>  
+        </a>
+        <a class="menu-item" id="settingsItem" data-file="settings.html">
+            <img src="img/settings.svg" alt="Settings" class="menu-icon">
+            <span class="menu-text">Settings</span>
+        </a>
+        <a class="menu-item" id="logoutItem" data-file="logout.html">
+            <img src="img/logout.svg" alt="Logout" class="menu-icon">
+            <span class="menu-text">Logout</span>
+        </a>
+    </div>
+</div>
+
+<!-- Main Content Area -->
+<div id="mainContent" class="main-content">
+    <!-- Inline Content for Graceful-thread -->
+    <div id="gracefulThreadContent" data-initial="true">
+        <h1>Graceful-thread Content</h1>
+        <p>This is the content for Graceful-thread loaded directly in the HTML.</p>
+    </div>
+</div>
+
+</body>
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+    const menuItems = document.querySelectorAll('.menu-item');
+    const mainContent = document.getElementById('mainContent');
+
+    // Save the original inline content for Graceful-thread
+    const gracefulThreadContent = document.getElementById('gracefulThreadContent').outerHTML;
+
+    // Set the initial active menu item based on the initial content
+    const initialItem = document.querySelector('[data-initial="true"]');
+    const initialMenuItem = document.querySelector('#gracefulThreadItem'); // Set this to the correct menu item
+
+    if (initialItem && initialMenuItem) {
+        initialMenuItem.classList.add('active');
+    }
+
+    menuItems.forEach(item => {
+        item.addEventListener('click', function () {
+            // Remove active class from all menu items
+            menuItems.forEach(menu => menu.classList.remove('active'));
+
+            // Add active class to the clicked item
+            this.classList.add('active');
+
+            // Get the file path or identifier from the data-file attribute
+            const filePath = this.getAttribute('data-file');
+
+            // Clear the main content area before loading new content
+            mainContent.innerHTML = '';
+
+            if (filePath === 'inline') {
+                // If 'inline', restore the saved inline content
+                mainContent.innerHTML = gracefulThreadContent;
+            } else {
+                // Load the content from the specified file using fetch
+                fetch(filePath)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Error loading ${filePath}: ${response.statusText}`);
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        // Display the fetched content in the main content area
+                        mainContent.innerHTML = data;
+                    })
+                    .catch(error => {
+                        // Display an error message if loading fails
+                        mainContent.innerHTML = `<p>Error loading content: ${error.message}</p>`;
+                    });
+            }
+        });
+    });
+});
+
+
+</script>
+</html>

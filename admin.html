@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Doctor Applications</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+</head>
+<body>
+
+    <div class="container">
+        <h1>Doctor Applications</h1>
+        <table border="1" cellpadding="10" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Specialization</th>
+                    <th>Experience</th>
+                    <th>Certificates</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="applicationTable">
+                <!-- Data will be loaded here dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Function to load applications from admin.php
+            function loadApplications() {
+                $.ajax({
+                    url: 'admin.php',
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function(response) {
+                        $('#applicationTable').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Failed to fetch applications:', error);
+                    }
+                });
+            }
+
+            // Load the applications when the page is ready
+            loadApplications();
+        });
+    </script>
+
+</body>
+</html>

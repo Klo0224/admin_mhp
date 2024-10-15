@@ -1,0 +1,85 @@
+/* Basic styles for the body */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+}
+
+/* Sidebar styles */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #edecec;
+    color: #fff;
+    position: relative;
+    transition: width 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.toggle-btn {
+    background-color: #edecec;
+    color: #5f5b5b;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    font-size: 25px;
+    text-align: left;
+}
+.menu-icon {
+    margin-right: 10px;
+    font-size: 25px; /* Adjust the size as needed */
+}
+
+
+.menu-content {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    color: #5f5b5b;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.menu-item:hover {
+    background-color: #1cabe3;
+    color: #fff;
+}
+
+.menu-item.active {
+    background-color: #007bff;
+}
+
+.menu-icon {
+    margin-right: 10px;
+}
+
+.bottom-menu {
+    margin-top: auto;
+    border-top: 1px solid #5f5b5b;
+    padding: 10px 0;
+}
+
+/* Main content styles */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f0f0f0;
+    transition: margin-left 0.3s;
+}
+
+/* Collapsed sidebar */
+.sidebar.collapsed {
+    width: 60px;
+}
+
+.sidebar.collapsed .menu-text {
+    display: none;
+}

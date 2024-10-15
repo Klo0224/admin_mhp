@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="fix.css">
+    <title>Doctor Dashboard</title>
+</head>
+<body>
+    <div class="top-navbar">
+        <div class="logo">
+            <a href="#"><img src="img/logo-mindsoothe-1.png" alt="Mindsoothe Logo"></a>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search Mindsoothe">
+        </div>
+        <img class="svgrepo-iconcarrier" src="img/svgrepo-iconcarrier.svg" />
+        <div class="user-profile">
+            <img src="img/klo.png" alt="User Avatar" class="user-avatar">
+            <span class="username">Chloe Kate Realin</span>
+        </div>
+        <img class="log-out" src="img/logout.svg" />
+    </div>
+    <div class="layout-container">
+        <!-- Left Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <button id="toggleBtn" class="toggle-btn"><img id="toggleIcon" src="img/frame-3.svg" alt="Toggle Menu" class="toggle-icon"></button>
+            <div class="menu-content">
+                <a class="menu-item" id="gracefulThreadItem">
+                    <img src="img/gracefulthread.png" alt="Graceful Thread" class="menu-icon">
+                    <span class="menu-text">Graceful-thread</span> 
+                </a>
+                <a class="menu-item" id="sereneMomentsItem">
+                    <img src="img/mhpcomp.png" alt="psyc" class="menu-icon">
+                    <span class="menu-text">Mental Health Professional</span>  
+                </a>
+                <a class="menu-item" id="settingsItem">
+                  <img src="img/settings.svg" alt="Settings" class="menu-icon">
+                  <span class="menu-text">Settings</span>
+              </a>
+              <a class="menu-item" id="logoutItem">
+                  <img src="img/logout.svg" alt="Logout" class="menu-icon">
+                  <span class="menu-text">Logout</span>
+              </a>
+            </div>
+        </div>
+        <!-- Main Content -->
+        <div class="main-container">
+            <p class="good-morning-dr">
+                <span class="text-wrapper">Good Morning</span>
+                <span class="span">&nbsp;</span>
+                <span class="text-wrapper-2">Dr. Chloe!</span>
+                </p>
+            <!-- Stats Container -->
+            <div class="stats-container">
+                <img class="dr" src="img/doctor-in-uk-removebg-preview-1.png" alt="Doctor Image">
+                <div class="stats-content">      
+                <h1 class="p">Visits for Today</h1>
+                        <h1 class="h">55</h1>
+                        <!--<img class="dr" src="img/doctor-in-uk-removebg-preview-1.png"> -->
+
+                <div class="stats">
+                    <div class="stat-box">
+                        <p class="p">New Patients</p>
+                        <h3 class="p">40</h3>
+                    </div>
+                    <div class="stat-box">
+                        <p class="p">Old Patients</p>
+                        <h3 class="p">64</h3>
+                    </div>
+                </div>
+            </div>  
+            </div>
+
+            <!-- Patient List Container -->
+            <div class="patient-list-container">
+                <h3>Patient List</h3>
+                <ul class="patient-list">
+                    <li>
+                        <span>Stacy Mitchell - Weekly Visit</span>
+                        <span>9:15 AM</span>
+                    </li>
+                    <li>
+                        <span>Amy Dunham - Weekly Visit</span>
+                        <span>9:30 AM</span>
+                    </li>
+                    <li>
+                        <span>Demi Joan - Weekly Visit</span>
+                        <span>9:50 AM</span>
+                    </li>
+                    <li>
+                        <span>Susan Myers - Weekly Visit</span>
+                        <span>10:15 AM</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Current Patient Container -->
+            <div class="right-content">
+                <h3>Current Patient</h3>
+                <div class="patient-info">
+                    <p><strong>Denzel White</strong></p>
+                    <p>Male - 28 Years</p>
+                    <p>High fever and cough at normal hemoglobin levels.</p>
+                    <p>ID: <a href="#">#J983KT0</a></p>
+                    <p>Paracetamol 2x daily, Diazepam before meal.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="right-sidebar">
+            <!-- Calendar Compartment -->
+            <div class="section calendar">
+                <img class="chevron" src="img/chevron-8.svg" />May 2024<img class="chevron" src="img/chevron-9.svg"/>
+
+            <div class="frame-10">
+              <div class="frame-11">
+                <div class="work-day"><div class="th">Sun</div></div>
+                <div class="work-day"><div class="th-2">Mon</div></div>
+                <div class="work-day"><div class="th-2">Tue</div></div>
+                <div class="work-day"><div class="th-2">Wed</div></div>
+                <div class="work-day"><div class="th-2">Thu</div></div>
+                <div class="work-day"><div class="th-2">Fri</div></div>
+                <div class="work-day"><div class="th">Sat</div></div>
+              </div>
+              <div class="frame-10">
+                <div class="frame-11">
+                  <div class="calendar-date"></div>
+                  <div class="calendar-date"></div>
+                  <div class="calendar-date"></div>
+                  <div class="calendar-date"></div>
+                  <div class="calendar-date-2"><div class="text-wrapper-10">1</div></div>
+                  <div class="calendar-date-2"><div class="text-wrapper-10">2</div></div>
+                  <div class="calendar-date-2"><div class="text-wrapper-10">3</div></div>
+                </div>
+                <div class="frame-11">
+                    <div class="calendar-date-2"><div class="element-2">4</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">5</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">6</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">7</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">8</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">9</div></div>
+                    <div class="calendar-date-2"><div class="element-2">10</div></div>
+                  </div>
+                 </div>
+                 <div class="frame-11">
+                    <div class="calendar-date-2"><div class="element-2">11</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">23</div></div>
+                    <div class="calendar-date-2">
+                      <div class="text-wrapper-10">13</div>
+                      <div class="ellipse-3"></div>
+                    </div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">14</div></div>
+                    <div class="element-wrapper"><div class="element-3">15</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">16</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">17</div></div>
+                  </div>
+                  <div class="frame-11">
+                    <div class="calendar-date-2"><div class="text-wrapper-10">18</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">19</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">20</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-10">21</div></div>
+                    <div class="calendar-date-3">
+                      <div class="text-wrapper-11">22</div>
+                      <div class="ellipse-4"></div>
+                    </div>
+                    <div class="calendar-date-2"><div class="text-wrapper-11">23</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-11">24</div></div>
+                  </div>
+                  <div class="frame-11">
+                    <div class="calendar-date-2"><div class="text-wrapper-11">25</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-11">26</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-11">27</div></div>
+                    <div class="calendar-date-2"><div class="text-wrapper-11">28</div></div>
+                    <div class="calendar-date-4">
+                      <div class="text-wrapper-11">29</div>
+                      <div class="ellipse-5"></div>
+                    </div>
+                    <div class="div-wrapper"><div class="text-wrapper-11">30</div></div>
+                    <div class="calendar-date"></div>
+                  </div>
+            </div>
+            </div>
+            
+            <!-- Chats Compartment -->
+            <div class="section chats">
+                <h3>Chats</h3>
+                <p>Choose your mental wellness companion first to access this...</p>
+            </div>
+    </div>
+    <script>
+        function toggleCard(type) {
+    const card = type === 'new' ? document.getElementById('new-patients-card') : document.getElementById('old-patients-card');
+    const existingContent = card.querySelector('.collapsible-content');
+
+    if (existingContent) {
+        existingContent.remove();
+    } else {
+        const content = document.createElement('div');
+        content.className = 'collapsible-content';
+        content.innerHTML = type === 'new'
+            ? `<p>Details about today's new patients.</p>`
+            : `<p>Details about old patients from previous visits.</p>`;
+        card.appendChild(content);
+    }
+}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Application</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Doctor Application Form</h1>
+        <form action="submit_application.php" method="POST" enctype="multipart/form-data" onsubmit="return validateFile()">
+            <label for="name">Full Name:</label>
+            <input type="text" name="name" required><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" required><br><br>
+
+            <label for="specialization">Specialization:</label>
+            <input type="text" name="specialization" required><br><br>
+
+            <label for="experience">Years of Experience:</label>
+            <input type="number" name="experience" required><br><br>
+
+            <label for="certificates">Upload Certificate (PDF or Image):</label>
+            <input type="file" name="certificates" id="certificates" accept=".pdf, .jpg, .jpeg, .png, .gif" required><br><br>
+
+            <button type="submit">Submit Application</button>
+        </form>
+    </div>
+
+    <script>
+        // Client-side file validation to ensure only images or PDFs are uploaded
+        function validateFile() {
+            const fileInput = document.getElementById('certificates');
+            const filePath = fileInput.value;
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.pdf)$/i;
+
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Please upload a valid file (PDF or image).');
+                fileInput.value = '';
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+</body>
+</html>
